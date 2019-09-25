@@ -17,6 +17,8 @@
         <ul class="menu">
             <li><a href="{% url 'index' %}">Home</a></li>
             {% block menu %}{% endblock %}
+            <li><a href="{% url 'status_index' %}">Statuses</a></li>
+            <li><a href="{% url 'type_index' %}">Types</a></li>
         </ul>
     </div>
 </nav>

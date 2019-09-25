@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import TemplateView, View
-from webapp.models import Task
+from webapp.models import Task, Status, Type
 from webapp.form import TaskForm
 
 class IndexView(TemplateView):
@@ -72,5 +72,19 @@ class TaskDeleteView(View):
         task.delete()
         return redirect('index')
 
+class StatusIndexView(TemplateView):
+    template_name = 'status_index.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['statuses'] = Status.objects.all()
+        return context
+
+class TypeIndexView(TemplateView):
+    template_name = 'type_index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['types'] = Type.objects.all()
+        return context
 

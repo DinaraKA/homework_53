@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block menu %}
+{#    <li><a href="{% url 'task_add' %}">Add Status</a></li>#}
+{% endblock %}
+{% block content %}
+    <form method="POST" action="{% url 'status_index' %}">
+        {% csrf_token %}
+        <table class="table">
+            <h3>Statuses</h3>
+            <thead>
+            <tr>
+               <th scope="col">#</th>
+               <th scope="col">Name</th>
+{#               <th scope="col">Status</th>#}
+{#               <th scope="col">Type</th>#}
+{#               <th scope="col">Created Date</th>#}
+            </tr>
+        </thead>
+            {% for status in statuses %}
+            <tbody>
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ status.status_name }}</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </form>
+{% endblock %}

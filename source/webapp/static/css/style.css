@@ -88,3 +88,6 @@ table a{
 .btn:hover{
     color: black;
 }
+.tables {
+    display: inline-flex;
+}
