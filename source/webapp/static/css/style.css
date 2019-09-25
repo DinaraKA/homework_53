@@ -76,3 +76,15 @@ table a{
     box-sizing: border-box;
     background: white;
 }
+
+.btn {
+    background: #6a7dff;
+    color: white;
+}
+
+.btn a{
+    color: white;
+}
+.btn:hover{
+    color: black;
+}

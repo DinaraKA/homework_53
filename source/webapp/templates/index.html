@@ -9,7 +9,7 @@
     <table class="table">
         <thead>
             <tr>
-               <th scope="col">Delete</th>
+               <th scope="col">#</th>
                <th scope="col" style="text-align: center">Summary</th>
                <th scope="col">Status</th>
                <th scope="col">Type</th>
@@ -19,7 +19,7 @@
         {% for task in tasks %}
         <tbody>
             <tr>
-                <th scope="row"><input type="checkbox", value="{{task.pk}}", id="{{ task.pk }}", name="'del"></th>
+                <th scope="row">{{ forloop.counter }}</th>
                 <td><a href="{% url 'task_view' task.pk %}">{{ task.summary }}</a></td>
                 <td>{{ task.status }}</td>
                 <td>{{ task.type }}</td>
@@ -30,4 +30,3 @@
     </table>
     </form>
 {% endblock %}
-
