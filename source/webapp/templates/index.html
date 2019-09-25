@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block menu %}
+{#    <li><a href="{% url 'task_add' %}">Add Task</a></li>#}
+{% endblock %}
+{% block content %}
+    <h2>Issues</h2>
+    <form method="POST" action="{% url 'index' %}">
+        {% csrf_token %}
+    <table class="table">
+        <thead>
+            <tr>
+               <th scope="col">Delete</th>
+               <th scope="col">Summary</th>
+               <th scope="col">Description</th>
+               <th scope="col">Status</th>
+               <th scope="col">Type</th>
+               <th scope="col">Created Date</th>
+            </tr>
+        </thead>
+        {% for task in tasks %}
+        <tbody>
+            <tr>
+                <th scope="row"><input type="checkbox", value="{{task.pk}}", id="{{ task.pk }}", name="'del"></th>
+                <td>{{ task.summary }}</td>
+                <td>{{ task.description }}</td>
+                <td>{{ task.status }}</td>
+                <td>{{ task.type }}</td>
+                <td>{{ task.created_at|date:'D, d M Y'}} {{ task.created_at|time:'H:i:s'}}</td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+    </form>
+{% endblock %}
+
