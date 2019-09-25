@@ -23,7 +23,7 @@
                 <td><a href="{% url 'task_view' task.pk %}">{{ task.summary }}</a></td>
                 <td>{{ task.status }}</td>
                 <td>{{ task.type }}</td>
-                <td>{{ task.created_at|date:'D, d M Y H:i:s'}}</td>
+                <td>{{ task.created_at|date:'D, d M Y G:i:s'}}</td>
             </tr>
         </tbody>
         {% endfor %}
