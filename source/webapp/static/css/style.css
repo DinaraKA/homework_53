@@ -51,7 +51,28 @@ h2 {
     text-decoration: underline;
 }
 
- table a{
+table a{
      color: black;
      text-decoration: none;
- }
+}
+
+.field-error {
+    border: solid 1px red;
+    box-shadow: red 0 0 3px;
+}
+
+.form-required {
+    color: red;
+    font-weight: bold;
+}
+
+.form-control {
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+    border: solid 1px lightgray;
+    box-sizing: border-box;
+    background: white;
+}
