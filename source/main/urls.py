@@ -15,15 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from webapp.views import IndexView, TaskView, TaskCreateView, TaskUpdateView, TaskDeleteView,StatusIndexView,TypeIndexView
+from webapp.views import IndexView, TaskView, TaskCreateView, TaskUpdateView, TaskDeleteView,\
+    StatusIndexView,TypeIndexView, StatusCreateView, TypeCreateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name='index'),
     path('task/<int:pk>/', TaskView.as_view(), name='task_view'),
-    path('task/add', TaskCreateView.as_view(), name='task_add'),
-    path('task/<int:pk>/update', TaskUpdateView.as_view(), name='task_update'),
-    path('task/<int:pk>/delete', TaskDeleteView.as_view(), name='task_delete'),
+    path('task/add/', TaskCreateView.as_view(), name='task_add'),
+    path('task/<int:pk>/update/', TaskUpdateView.as_view(), name='task_update'),
+    path('task/<int:pk>/delete/', TaskDeleteView.as_view(), name='task_delete'),
     path('statuses/', StatusIndexView.as_view(), name='status_index'),
-    path('types/', TypeIndexView.as_view(), name='type_index')
+    path('types/', TypeIndexView.as_view(), name='type_index'),
+    path('statuses/add/', StatusCreateView.as_view(), name='status_add'),
+    path('types/add/', TypeCreateView.as_view(), name='type_add')
 ]

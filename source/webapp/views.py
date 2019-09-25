@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import TemplateView, View
 from webapp.models import Task, Status, Type
-from webapp.form import TaskForm
+from webapp.form import TaskForm, StatusForm, TypeForm
 
 class IndexView(TemplateView):
     template_name = 'index.html'
@@ -87,4 +87,34 @@ class TypeIndexView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['types'] = Type.objects.all()
         return context
+
+class StatusCreateView(View):
+    def get(self, request, *args, **kwargs):
+        form = StatusForm()
+        return render(request, 'status_create.html', context={'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = StatusForm(data=request.POST)
+        if form.is_valid():
+            status = Status.objects.create(
+                status_name=form.cleaned_data['status_name'],
+            )
+            return redirect('status_index',)
+        else:
+            return render(request, 'status_create.html', context={'form': form})
+
+class TypeCreateView(View):
+    def get(self, request, *args, **kwargs):
+        form = TypeForm()
+        return render(request, 'type_create.html', context={'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = TypeForm(data=request.POST)
+        if form.is_valid():
+            type = Type.objects.create(
+                type_name=form.cleaned_data['type_name'],
+            )
+            return redirect('type_index',)
+        else:
+            return render(request, 'type_create.html', context={'form': form})
 
