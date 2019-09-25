@@ -51,3 +51,7 @@ h2 {
     text-decoration: underline;
 }
 
+ table a{
+     color: black;
+     text-decoration: none;
+ }
