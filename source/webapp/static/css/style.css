@@ -8,6 +8,11 @@ h2 {
     text-align: center;
 }
 
+h3 {
+    color: red;
+    text-align: center;
+}
+
 .container {
     max-width: 1200px;
     width: 100%;
@@ -90,4 +95,8 @@ table a{
 }
 .tables {
     display: inline-flex;
+}
+
+.symbol{
+    text-align: center;
 }

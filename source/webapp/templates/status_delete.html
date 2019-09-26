@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Delete Status{% endblock %}
+
+{% block content %}
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h2>Are you sure want to delete status?</h2>
+            <form method="POST" action="{% url "status_delete" status.pk %}" class="text-center">
+                {% csrf_token %}
+                <p class="lead">{{ status.status_name }}</p>
+                <hr class="my-4">
+                <button type="submit" class="btn" value="Подтвердить">Yes</button>
+                <button type="submit" class="btn" value="Submit"><a href="{% url 'status_index' %}">No</a></button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

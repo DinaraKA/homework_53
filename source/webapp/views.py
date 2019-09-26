@@ -1,7 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import TemplateView, View
+from django.db.models import ProtectedError
 from webapp.models import Task, Status, Type
 from webapp.form import TaskForm, StatusForm, TypeForm
+
+
 
 class IndexView(TemplateView):
     template_name = 'index.html'
@@ -96,7 +99,7 @@ class StatusCreateView(View):
     def post(self, request, *args, **kwargs):
         form = StatusForm(data=request.POST)
         if form.is_valid():
-            status = Status.objects.create(
+            Status.objects.create(
                 status_name=form.cleaned_data['status_name'],
             )
             return redirect('status_index',)
@@ -111,7 +114,7 @@ class TypeCreateView(View):
     def post(self, request, *args, **kwargs):
         form = TypeForm(data=request.POST)
         if form.is_valid():
-            type = Type.objects.create(
+            Type.objects.create(
                 type_name=form.cleaned_data['type_name'],
             )
             return redirect('type_index',)
@@ -153,4 +156,31 @@ class TypeUpdateView(View):
             return redirect('type_index')
         else:
             return render(request, 'type_update.html', context={'form': form, 'type':type})
+
+class StatusDeleteView(View):
+    def get(self, request, pk):
+        status = get_object_or_404(Status, pk=pk)
+        return render(request, 'status_delete.html', context={'status': status})
+
+    def post(self, request, pk):
+        status = get_object_or_404(Status, pk=pk)
+        try:
+            status.delete()
+            return redirect('status_index')
+        except ProtectedError:
+            return render(request, 'error.html')
+
+class TypeDeleteView(View):
+    def get(self, request, pk):
+        type = get_object_or_404(Type, pk=pk)
+        return render(request, 'type_delete.html', context={'type':type})
+
+    def post(self, request, pk):
+        type = get_object_or_404(Type, pk=pk)
+        try:
+            type.delete()
+            return redirect('type_index')
+        except ProtectedError:
+            return render(request, 'error.html')
+
 

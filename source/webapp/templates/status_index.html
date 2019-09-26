@@ -8,21 +8,22 @@
         <table class="table">
             <h3>Statuses</h3>
             <thead>
-            <tr>
-               <th scope="col">#</th>
-               <th scope="col">Name</th>
-               <th scope="col">Update</th>
-{#               <th scope="col">Type</th>#}
-            </tr>
-        </thead>
-            {% for status in statuses %}
-            <tbody>
                 <tr>
-                    <th scope="row">{{ forloop.counter }}</th>
-                    <td>{{ status.status_name }}</td>
-                    <td><a href="{% url 'status_update' status.pk %}">&#x270E;</a></td>
+                   <th scope="col">#</th>
+                   <th scope="col">Name</th>
+                   <th class="symbol" scope="col">Update</th>
+                   <th class="symbol" scope="col">Delete</th>
                 </tr>
-            </tbody>
+            </thead>
+            {% for status in statuses %}
+                <tbody>
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ status.status_name }}</td>
+                        <td class="symbol"><a href="{% url 'status_update' status.pk %}">&#x270E;</a></td>
+                        <td class="symbol"><a href="{% url 'status_delete' status.pk %}">X</a></td>
+                    </tr>
+                </tbody>
             {% endfor %}
         </table>
     </form>

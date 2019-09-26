@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Protected Error{% endblock %}
+
+{% block content %}
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container" style="justify-content: center; display: flex; flex-direction: column">
+            <h3>This model can not be deleted.</h3>
+            <button type="submit" class="btn" style="width: 70px; margin: auto" value="Submit"><a href="{% url 'status_index' %}">Back</a></button>
+        </div>
+    </div>
+{% endblock %}
