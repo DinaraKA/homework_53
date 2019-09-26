@@ -11,7 +11,7 @@
                 <tr>
                    <th scope="col">#</th>
                    <th scope="col">Name</th>
-    {#               <th scope="col">Status</th>#}
+                   <th scope="col">Update</th>
     {#               <th scope="col">Type</th>#}
     {#               <th scope="col">Created Date</th>#}
                 </tr>
@@ -21,6 +21,7 @@
                 <tr>
                     <th scope="row">{{ forloop.counter }}</th>
                     <td>{{ type.type_name }}</td>
+                    <td><a href="{% url 'type_update' type.pk %}">&#x270E;</a></td>
                 </tr>
             </tbody>
             {% endfor %}
