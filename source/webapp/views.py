@@ -76,7 +76,7 @@ class TaskDeleteView(View):
         return redirect('index')
 
 class StatusIndexView(TemplateView):
-    template_name = 'status_index.html'
+    template_name = 'status/status_index.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -84,7 +84,7 @@ class StatusIndexView(TemplateView):
         return context
 
 class TypeIndexView(TemplateView):
-    template_name = 'type_index.html'
+    template_name = 'type/type_index.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -94,7 +94,7 @@ class TypeIndexView(TemplateView):
 class StatusCreateView(View):
     def get(self, request, *args, **kwargs):
         form = StatusForm()
-        return render(request, 'status_create.html', context={'form': form})
+        return render(request, 'status/status_create.html', context={'form': form})
 
     def post(self, request, *args, **kwargs):
         form = StatusForm(data=request.POST)
@@ -104,12 +104,12 @@ class StatusCreateView(View):
             )
             return redirect('status_index',)
         else:
-            return render(request, 'status_create.html', context={'form': form})
+            return render(request, 'status/status_create.html', context={'form': form})
 
 class TypeCreateView(View):
     def get(self, request, *args, **kwargs):
         form = TypeForm()
-        return render(request, 'type_create.html', context={'form': form})
+        return render(request, 'type/type_create.html', context={'form': form})
 
     def post(self, request, *args, **kwargs):
         form = TypeForm(data=request.POST)
@@ -119,7 +119,7 @@ class TypeCreateView(View):
             )
             return redirect('type_index',)
         else:
-            return render(request, 'type_create.html', context={'form': form})
+            return render(request, 'type/type_create.html', context={'form': form})
 
 class StatusUpdateView(View):
     def get(self, request, pk):
@@ -127,7 +127,7 @@ class StatusUpdateView(View):
         form = StatusForm(data={
             'status_name': status.status_name
         })
-        return render(request, 'status_update.html', context={'form': form, 'status':status})
+        return render(request, 'status/status_update.html', context={'form': form, 'status':status})
 
     def post(self, request, pk):
         status = get_object_or_404(Status, pk=pk)
@@ -137,7 +137,7 @@ class StatusUpdateView(View):
             status.save()
             return redirect('status_index')
         else:
-            return render(request, 'status_update.html', context={'form': form, 'status':status})
+            return render(request, 'status/status_update.html', context={'form': form, 'status':status})
 
 class TypeUpdateView(View):
     def get(self, request, pk):
@@ -145,7 +145,7 @@ class TypeUpdateView(View):
         form = TypeForm(data={
             'type_name': type.type_name
         })
-        return render(request, 'type_update.html', context={'form': form, 'type':type})
+        return render(request, 'type/type_update.html', context={'form': form, 'type':type})
 
     def post(self, request, pk):
         type = get_object_or_404(Type, pk=pk)
@@ -155,12 +155,12 @@ class TypeUpdateView(View):
             type.save()
             return redirect('type_index')
         else:
-            return render(request, 'type_update.html', context={'form': form, 'type':type})
+            return render(request, 'type/type_update.html', context={'form': form, 'type':type})
 
 class StatusDeleteView(View):
     def get(self, request, pk):
         status = get_object_or_404(Status, pk=pk)
-        return render(request, 'status_delete.html', context={'status': status})
+        return render(request, 'status/status_delete.html', context={'status': status})
 
     def post(self, request, pk):
         status = get_object_or_404(Status, pk=pk)
@@ -173,7 +173,7 @@ class StatusDeleteView(View):
 class TypeDeleteView(View):
     def get(self, request, pk):
         type = get_object_or_404(Type, pk=pk)
-        return render(request, 'type_delete.html', context={'type':type})
+        return render(request, 'type/type_delete.html', context={'type':type})
 
     def post(self, request, pk):
         type = get_object_or_404(Type, pk=pk)
