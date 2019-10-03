@@ -1,17 +1,15 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import TemplateView, View
+from django.views.generic import View
 from django.db.models import ProtectedError
-from webapp.models import  Type
+from webapp.models import Type
 from webapp.forms import TypeForm
+from .base_views import ListView
 
 
-class TypeIndexView(TemplateView):
+class TypeIndexView(ListView):
+    context_key = 'types'
+    model = Type
     template_name = 'type/type_index.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['types'] = Type.objects.all()
-        return context
 
 
 class TypeCreateView(View):

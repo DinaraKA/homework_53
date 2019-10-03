@@ -1,17 +1,15 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import TemplateView, View
+from django.views.generic import View
 from django.db.models import ProtectedError
-from webapp.models import  Status
-from webapp.forms import  StatusForm
+from webapp.models import Status
+from webapp.forms import StatusForm
+from .base_views import ListView
 
 
-class StatusIndexView(TemplateView):
+class StatusIndexView(ListView):
+    context_key = 'statuses'
+    model = Status
     template_name = 'status/status_index.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['statuses'] = Status.objects.all()
-        return context
 
 
 class StatusCreateView(View):
