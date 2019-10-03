@@ -9,7 +9,6 @@ h2 {
 }
 
 h3 {
-    color: red;
     text-align: center;
 }
 
@@ -100,3 +99,13 @@ table a{
 .symbol{
     text-align: center;
 }
+
+.pagination {
+    justify-content: center;
+    padding: 20px;
+}
+
+.pagination a {
+    margin: auto 10px;
+}
+

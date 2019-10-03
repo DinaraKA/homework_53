@@ -1,13 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import View
+from django.views import View
+from django.views.generic import ListView
 from django.db.models import ProtectedError
 from webapp.models import Type
 from webapp.forms import TypeForm
-from .base_views import ListView
 
 
 class TypeIndexView(ListView):
-    context_key = 'types'
+    context_object_name = 'types'
     model = Type
     template_name = 'type/type_index.html'
 
