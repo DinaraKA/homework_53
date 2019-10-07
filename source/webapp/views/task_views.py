@@ -1,10 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views import View
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from webapp.models import Task
 from webapp.forms import TaskForm
-from .base_views import CreateView
 
 
 class IndexView(ListView):
@@ -28,7 +27,7 @@ class TaskCreateView(CreateView):
     template_name = 'task/create.html'
     form_class = TaskForm
 
-    def get_redirect_url(self):
+    def get_success_url(self):
         return reverse('task_view', kwargs={'pk':self.object.pk})
 
 

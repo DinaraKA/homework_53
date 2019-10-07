@@ -1,11 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views import View
-from django.views.generic import ListView
+from django.views.generic import ListView, CreateView
 from django.db.models import ProtectedError
 from webapp.models import Status
 from webapp.forms import StatusForm
-from webapp.views.base_views import CreateView
+
 
 
 class StatusIndexView(ListView):
@@ -19,7 +19,7 @@ class StatusCreateView(CreateView):
     template_name = 'status/status_create.html'
     form_class = StatusForm
 
-    def get_redirect_url(self):
+    def get_success_url(self):
         return reverse('status_index')
 
 
