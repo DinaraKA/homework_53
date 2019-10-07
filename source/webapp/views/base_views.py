@@ -1,3 +1,4 @@
+from django.db.models import ProtectedError
 from django.views import View
 from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404, render, redirect
@@ -86,3 +87,41 @@ class UpdateView(View):
         return render(self.request, self.template_name, context={'form':form})
 
 
+class DeleteView(View):
+    template_name = None
+    model = None
+    redirect_url = ''
+
+    def get(self, request, *args, **kwargs):
+        object = get_object_or_404(self.model, pk=kwargs['pk'])
+        return render(request, self.template_name, context={ 'object': object})
+
+    def post(self, request, **kwargs):
+        object = get_object_or_404(self.model, pk=kwargs['pk'])
+        object.delete()
+        return redirect(self.get_redirect_url())
+
+    def get_redirect_url(self):
+        return self.redirect_url
+
+
+class DeleteExceptionView(View):
+    template_name = None
+    model = None
+    redirect_url = ''
+
+    def get(self, request, *args, **kwargs):
+        object = get_object_or_404(self.model, pk=kwargs['pk'])
+        return render(request, self.template_name, context={ 'object': object})
+
+    def post(self, request, **kwargs):
+        object = get_object_or_404(self.model, pk=kwargs['pk'])
+        try:
+            object.delete()
+            return redirect(self.get_redirect_url())
+        except ProtectedError:
+            return render(request, 'error.html')
+
+
+    def get_redirect_url(self):
+        return self.redirect_url

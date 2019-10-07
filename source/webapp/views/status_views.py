@@ -1,11 +1,8 @@
-from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-from django.views import View
 from django.views.generic import ListView, CreateView
-from django.db.models import ProtectedError
 from webapp.models import Status
 from webapp.forms import StatusForm
-from .base_views import UpdateView
+from .base_views import UpdateView, DeleteExceptionView
 
 
 
@@ -33,16 +30,10 @@ class StatusUpdateView(UpdateView):
         return reverse('status_index')
 
 
-class StatusDeleteView(View):
-    def get(self, request, pk):
-        status = get_object_or_404(Status, pk=pk)
-        return render(request, 'status/status_delete.html', context={'status': status})
+class StatusDeleteView(DeleteExceptionView):
+    context_key = 'status'
+    template_name = 'status/status_delete.html'
+    model = Status
 
-    def post(self, request, pk):
-        status = get_object_or_404(Status, pk=pk)
-        try:
-            status.delete()
-            return redirect('status_index')
-        except ProtectedError:
-            return render(request, 'error.html')
-
+    def get_redirect_url(self):
+        return reverse('status_index')
