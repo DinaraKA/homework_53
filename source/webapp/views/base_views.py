@@ -18,11 +18,11 @@ class ListView(TemplateView):
 class DetailView(TemplateView):
     context_key = 'object'
     model = None
+    key_kwargs = 'pk'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        item_pk = kwargs.get('pk')
-        context[self.context_key] = get_object_or_404(self.model, pk=item_pk)
+        context[self.context_key] = get_object_or_404(self.model, pk=self.kwargs.get(self.key_kwargs))
         return context
 
 
