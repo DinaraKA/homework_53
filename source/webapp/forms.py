@@ -14,6 +14,7 @@ class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = ['summary', 'description', 'status', 'type']
+        object = 'task'
 
 
 # class StatusForm(forms.Form):
@@ -22,6 +23,7 @@ class TaskForm(forms.ModelForm):
 class StatusForm(forms.ModelForm):
     class Meta:
         model = Status
+        fields =['status_name']
 
 # class TypeForm(forms.Form):
 #     type_name = forms.CharField(max_length=20, required=True, label='Type name')
@@ -29,3 +31,4 @@ class StatusForm(forms.ModelForm):
 class TypeForm(forms.ModelForm):
     class Meta:
         model = Type
+        fields =['type_name']

@@ -5,6 +5,7 @@ from django.views.generic import ListView, CreateView
 from django.db.models import ProtectedError
 from webapp.models import Type
 from webapp.forms import TypeForm
+from .base_views import UpdateView
 
 
 class TypeIndexView(ListView):
@@ -22,23 +23,13 @@ class TypeCreateView(CreateView):
         return reverse('type_index')
 
 
-class TypeUpdateView(View):
-    def get(self, request, pk):
-        type = get_object_or_404(Type, pk=pk)
-        form = TypeForm(data={
-            'type_name': type.type_name
-        })
-        return render(request, 'type/type_update.html', context={'form': form, 'type':type})
+class TypeUpdateView(UpdateView):
+    model = Type
+    template_name = 'type/type_update.html'
+    form_class = TypeForm
 
-    def post(self, request, pk):
-        type = get_object_or_404(Type, pk=pk)
-        form = TypeForm(data=request.POST)
-        if form.is_valid():
-            type.type_name=form.cleaned_data['type_name']
-            type.save()
-            return redirect('type_index')
-        else:
-            return render(request, 'type/type_update.html', context={'form': form, 'type':type})
+    def get_redirect_url(self):
+        return reverse('type_index')
 
 
 class TypeDeleteView(View):

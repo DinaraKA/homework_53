@@ -5,6 +5,7 @@ from django.views.generic import ListView, CreateView
 from django.db.models import ProtectedError
 from webapp.models import Status
 from webapp.forms import StatusForm
+from .base_views import UpdateView
 
 
 
@@ -23,23 +24,13 @@ class StatusCreateView(CreateView):
         return reverse('status_index')
 
 
-class StatusUpdateView(View):
-    def get(self, request, pk):
-        status = get_object_or_404(Status, pk=pk)
-        form = StatusForm(data={
-            'status_name': status.status_name
-        })
-        return render(request, 'status/status_update.html', context={'form': form, 'status':status})
+class StatusUpdateView(UpdateView):
+    model = Status
+    template_name = 'status/status_update.html'
+    form_class = StatusForm
 
-    def post(self, request, pk):
-        status = get_object_or_404(Status, pk=pk)
-        form = StatusForm(data=request.POST)
-        if form.is_valid():
-            status.status_name=form.cleaned_data['status_name']
-            status.save()
-            return redirect('status_index')
-        else:
-            return render(request, 'status/status_update.html', context={'form': form, 'status':status})
+    def get_redirect_url(self):
+        return reverse('status_index')
 
 
 class StatusDeleteView(View):
