@@ -13,6 +13,7 @@ class Type(models.Model):
     def __str__(self):
         return self.type_name
 
+
 class Task(models.Model):
     summary = models.CharField(max_length=100, verbose_name="Summary")
     description = models.TextField(max_length=2000, null=True, blank=True, verbose_name="Description")

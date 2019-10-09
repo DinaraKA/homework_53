@@ -11,6 +11,7 @@ class TypeIndexView(ListView):
     template_name = 'type/type_index.html'
 
 
+
 class TypeCreateView(CreateView):
     model = Type
     template_name = 'type/type_create.html'
@@ -24,6 +25,7 @@ class TypeUpdateView(UpdateView):
     model = Type
     template_name = 'type/type_update.html'
     form_class = TypeForm
+    context_key = 'type'
 
     def get_redirect_url(self):
         return reverse('type_index')

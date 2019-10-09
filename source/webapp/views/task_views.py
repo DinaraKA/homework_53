@@ -34,6 +34,7 @@ class TaskUpdateView(UpdateView):
     model = Task
     template_name = 'task/update.html'
     form_class = TaskForm
+    context_key = 'task'
 
     def get_redirect_url(self):
         return reverse('task_view', kwargs={'pk': self.object.pk})

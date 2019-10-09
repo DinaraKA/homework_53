@@ -25,6 +25,7 @@ class StatusUpdateView(UpdateView):
     model = Status
     template_name = 'status/status_update.html'
     form_class = StatusForm
+    context_key = 'status'
 
     def get_redirect_url(self):
         return reverse('status_index')
