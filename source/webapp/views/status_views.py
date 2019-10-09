@@ -1,8 +1,8 @@
 from django.urls import reverse
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView
 from webapp.models import Status
 from webapp.forms import StatusForm
-from .base_views import UpdateView, DeleteExceptionView
+from .base_views import  DeleteExceptionView
 
 
 
@@ -25,9 +25,9 @@ class StatusUpdateView(UpdateView):
     model = Status
     template_name = 'status/status_update.html'
     form_class = StatusForm
-    context_key = 'status'
+    context_object_name = 'status'
 
-    def get_redirect_url(self):
+    def get_success_url(self):
         return reverse('status_index')
 
 
