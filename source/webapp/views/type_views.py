@@ -1,15 +1,15 @@
+from django.db.models import ProtectedError
+from django.shortcuts import render
 from django.urls import reverse
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from webapp.models import Type
 from webapp.forms import TypeForm
-from .base_views import  DeleteExceptionView
 
 
 class TypeIndexView(ListView):
     context_object_name = 'types'
     model = Type
     template_name = 'type/type_index.html'
-
 
 
 class TypeCreateView(CreateView):
@@ -31,11 +31,15 @@ class TypeUpdateView(UpdateView):
         return reverse('type_index')
 
 
-class TypeDeleteView(DeleteExceptionView):
-    context_key = 'type'
-    template_name = 'type/type_delete.html'
+class TypeDeleteView(DeleteView):
     model = Type
+    template_name = 'error.html'
 
-    def get_redirect_url(self):
+    def get(self, request, *args, **kwargs):
+        try:
+            return self.delete(request, *args, **kwargs)
+        except ProtectedError:
+            return render(request, self.template_name)
+
+    def get_success_url(self):
         return reverse('type_index')
-

@@ -1,9 +1,9 @@
-from django.urls import reverse
-from django.views.generic import ListView, CreateView, UpdateView
+from django.shortcuts import render
+from django.urls import reverse, reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from webapp.models import Status
 from webapp.forms import StatusForm
-from .base_views import  DeleteExceptionView
-
+from django.db.models import ProtectedError
 
 
 class StatusIndexView(ListView):
@@ -31,10 +31,15 @@ class StatusUpdateView(UpdateView):
         return reverse('status_index')
 
 
-class StatusDeleteView(DeleteExceptionView):
-    context_key = 'status'
-    template_name = 'status/status_delete.html'
+class StatusDeleteView(DeleteView):
     model = Status
+    template_name = 'error.html'
 
-    def get_redirect_url(self):
+    def get(self, request, *args, **kwargs):
+        try:
+            return self.delete(request, *args, **kwargs)
+        except ProtectedError:
+            return render(request, self.template_name)
+
+    def get_success_url(self):
         return reverse('status_index')
