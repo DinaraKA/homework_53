@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block menu %}
-{#    <li><a href="{% url 'project_add' %}">Add Status</a></li>#}
+    <li><a href="{% url 'project_add' %}">Add Project</a></li>
 {% endblock %}
 {% block content %}
     <form method="POST" action="{% url 'project_index' %}">

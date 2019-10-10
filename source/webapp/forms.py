@@ -1,6 +1,6 @@
 from django import forms
-# from django.forms import widgets
-from webapp.models import Status, Type, Task
+from django.forms import widgets
+from webapp.models import Status, Type, Task, Project
 
 
 # class TaskForm(forms.Form):
@@ -15,6 +15,10 @@ class TaskForm(forms.ModelForm):
         model = Task
         fields = ['summary', 'description', 'project', 'status', 'type']
         object = 'task'
+        widgets = {
+            'description': widgets.Textarea
+        }
+
 
 
 # class StatusForm(forms.Form):
@@ -38,4 +42,10 @@ class ProjectTaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = ['summary', 'description', 'status', 'type']
+
+
+class ProjectForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields =['name']
 

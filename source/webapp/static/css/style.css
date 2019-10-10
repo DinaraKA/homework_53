@@ -109,3 +109,6 @@ table a{
     margin: auto 10px;
 }
 
+.pre {
+    white-space: pre-wrap;
+}
