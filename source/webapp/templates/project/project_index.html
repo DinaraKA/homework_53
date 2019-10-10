@@ -19,7 +19,7 @@
                 <tbody>
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
-                        <td>{{ project.name }}</td>
+                        <td><a href="{% url 'project_view' project.pk %}">{{ project.name }}</a></td>
 {#                        <td class="symbol"><a href="{% url 'project_update' project.pk %}">&#x270E;</a></td>#}
 {#                        <td class="symbol"><a href="{% url 'project_delete' project.pk %}">X</a></td>#}
                     </tr>

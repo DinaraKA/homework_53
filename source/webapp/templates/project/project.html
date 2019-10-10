@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}{{ project.name}}{% endblock %}
+{% block menu %}
+{#    <li><a href="{% url 'project_update' project.pk %}">Update</a></li>#}
+{#    <li><a href="{% url 'project_delete' project.pk %}">Delete</a></li>#}
+{% endblock %}
+{% block content %}
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h3>Project: {{ project.name}}</h3>
+            <p class="lead">{{ project.description }}</p>
+            <hr class="my-4">
+            <p><b>Created date: </b>{{ project.created_at|date:'Y-m-d H:i:s' }}</p>
+            <hr/>
+            <h3>Issues:</h3>
+            {% if is_paginated %}
+                {% include 'partial/pagination.html' %}
+            {% endif %}
+            <div class="issue-list">
+                {% for task in tasks %}
+                    <hr>
+                    <div class="task">
+                        <p><b>{{ forloop.counter }}. {{ task.summary }} created at {{ task.created_at|date:'d.m.Y H:i:s' }}</b></p>
+                        <div class="pre">{{ task.description }}</div>
+                        <p class="task-links">
+{#                            <a href="{% url 'task_update' comment.pk %}">Edit</a>#}
+{#                            <a href="{% url 'task_delete' comment.pk %}">Delete</a>#}
+                        </p>
+                    </div>
+                {% empty %}
+                    <p>No issues yet.</p>
+                {% endfor %}
+            </div>
+            {% if is_paginated %}
+                {% include 'partial/pagination.html' %}
+            {% endif %}
+            <form action="{% url 'project_task_create' project.pk %}" method="POST" id="task_add">
+                {% include 'partial/form.html' with button_text='Add' %}
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
