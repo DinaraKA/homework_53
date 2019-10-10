@@ -13,7 +13,7 @@ from webapp.models import Status, Type, Task
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ['summary', 'description', 'status', 'type']
+        fields = ['summary', 'description', 'project', 'status', 'type']
         object = 'task'
 
 
