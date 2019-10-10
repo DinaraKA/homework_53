@@ -1,6 +1,8 @@
 from django.core.paginator import Paginator
-from django.urls import reverse
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.db.models import ProtectedError
+from django.shortcuts import render
+from django.urls import reverse, reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from webapp.forms import ProjectTaskForm, ProjectForm
 from webapp.models import Project
 
@@ -53,3 +55,17 @@ class ProjectUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse('project_view', kwargs={'pk': self.object.pk})
+
+
+class ProjectDeleteView(DeleteView):
+    model = Project
+    template_name = 'error.html'
+
+    def get(self, request, *args, **kwargs):
+        try:
+            return self.delete(request, *args, **kwargs)
+        except ProtectedError:
+            return render(request, self.template_name)
+
+    def get_success_url(self):
+        return reverse('project_index')
