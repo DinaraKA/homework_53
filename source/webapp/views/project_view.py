@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator
 from django.urls import reverse
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from webapp.forms import ProjectTaskForm, ProjectForm
 from webapp.models import Project
 
@@ -43,3 +43,13 @@ class ProjectCreateView(CreateView):
 
     def get_success_url(self):
         return reverse('project_index')
+
+
+class ProjectUpdateView(UpdateView):
+    model = Project
+    template_name = 'project/project_update.html'
+    form_class = ProjectForm
+    context_object_name = 'project'
+
+    def get_success_url(self):
+        return reverse('project_view', kwargs={'pk': self.object.pk})
